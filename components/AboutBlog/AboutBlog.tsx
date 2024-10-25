@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
-import { Accordion, Container, Title, Text, List, Table, Button } from '@mantine/core';
+import { Accordion, Container, Title, Text, List, Table, Button, TextInput, Textarea, Group } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 const DataSourcesTable = () => (
   <Table highlightOnHover>
@@ -30,69 +31,138 @@ const DataSourcesTable = () => (
   </Table>
 );
 
-const NYCSubwayVisualizerDocs: React.FC = () => (
-  <Container>
-    <Title order={1}>MTA Data Explorer</Title>
-    <Text mt="md">
-      This project, split into two parts, offers insights into New York City’s subway system. Part one, The Data Explorer, is a comprehensive tool for subway navigation, providing information on amenities like bathroom availability, ADA accessibility, ridership data, and nearby police stations. Part two, The Income Visualizer, presents median household income by census tract, revealing socioeconomic contrasts along subway routes and providing a view of NYC's economic diversity.
-    </Text>
+const NYCSubwayVisualizerDocs: React.FC = () => {
+  const form = useForm({
+    initialValues: {
+      name: '',
+      email: '',
+      feedback: '',
+    },
+  });
 
-    <Accordion mt="lg">
-      <Accordion.Item value="About This Project">
-        <Text>
-          This project visualizes income data for NYC subway stations, highlighting income contrasts between stops to showcase the city's socioeconomic diversity. The visualizer also provides essential subway data, creating a useful tool for planning subway travel in NYC.
-        </Text>
-      </Accordion.Item>
+  const handleSubmit = async (values: typeof form.values) => {
+    console.log('Sending email to nguyenmegan@berkeley.edu:', values);
+    alert('Feedback sent successfully!');
+  };
 
-      <Accordion.Item value="Data Sources">
-        <Text mt="sm">The project utilizes several datasets for both income and station amenities:</Text>
-        <DataSourcesTable />
-      </Accordion.Item>
+  return (
+    <Container>
+      <Title order={1}>MTA Data Explorer</Title>
+      <Text mt="md">
+        This web application offers a comprehensive tool for exploring New York City's subway system. Designed for both
+        practical use and social awareness, the tool provides travelers with key subway information and highlights
+        socioeconomic diversity across the city through subway routes.
+      </Text>
 
-      <Accordion.Item value="Visualization Technology">
-        <Text>
-          Built with <a href="https://recharts.org/en-US/" target="_blank">Recharts</a>, this project uses responsive, interactive data visualizations to represent income levels by station and line.
-        </Text>
-      </Accordion.Item>
+      <Title order={2} mt="lg">Features</Title>
+      <Text mt="sm">
+        <b>Data Explorer:</b> Provides essential station details such as bathroom availability, ADA accessibility,
+        ridership levels, and proximity to nearby police stations. This helps users plan subway travel with essential
+        information at their fingertips.
+      </Text>
+      <Text mt="sm">
+        <b>Income Visualizer:</b> Maps median household income by census tract to highlight socioeconomic contrasts
+        encountered along subway routes. This visual insight into economic diversity offers a unique perspective on
+        NYC's neighborhoods.
+      </Text>
 
-      <Accordion.Item value="Station Information and Practical Use">
-        <Text mt="sm">Key details available for each station:</Text>
-        <List spacing="xs" mt="xs">
-          {[
-            ["Bathrooms", "Convenient for travelers, especially those with medical needs, families, or on long commutes."],
-            ["ADA Accessibility", "Ensures accessible navigation for users with limited mobility."],
-            ["Ridership Levels", "Helps anticipate crowd levels and plan travel accordingly."],
-            ["Nearby Police Stations", "Provides a sense of safety and supports emergency response."],
-          ].map(([title, description]) => (
-            <List.Item key={title}>
-              <b>{title}</b>: {description}
-            </List.Item>
-          ))}
-        </List>
-      </Accordion.Item>
+      <Accordion mt="lg">
+        <Accordion.Item value="data-sources">
+          <Accordion.Control>Data Sources</Accordion.Control>
+          <Accordion.Panel>
+            <Text mt="sm">The project utilizes several datasets for both income and station amenities:</Text>
+            <DataSourcesTable />
+          </Accordion.Panel>
+        </Accordion.Item>
 
-      <Accordion.Item value="Future Directions">
-        <Text>Potential project expansions include:</Text>
-        <List spacing="xs" mt="xs">
-          {[
-            ["Additional Data Layers", "Add cost of living data, school locations, and hospital proximity."],
-            ["Advanced User Interactions", "Introduce a time-lapse view to track income trends over time."],
-            ["Further Data Integration", "Incorporate crime statistics and real estate trends for context on wealth disparities and gentrification."],
-          ].map(([title, description]) => (
-            <List.Item key={title}>
-              <b>{title}</b>: {description}
-            </List.Item>
-          ))}
-        </List>
-      </Accordion.Item>
-    </Accordion>
+        <Accordion.Item value="visualization-technology">
+          <Accordion.Control>Visualization Technology</Accordion.Control>
+          <Accordion.Panel>
+            <Text>
+              Built with <a href="https://recharts.org/en-US/" target="_blank">Recharts</a>, this project uses responsive,
+              interactive data visualizations to represent income levels by station and line.
+            </Text>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-    <Button variant="outline" mt="lg">
-      <a href="https://github.com/nguyenmegan/mta-train-data" target="_blank" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Accordion.Item value="station-information">
+          <Accordion.Control>Station Information and Practical Use</Accordion.Control>
+          <Accordion.Panel>
+            <Text mt="sm">Key details available for each station:</Text>
+            <List spacing="xs" mt="xs">
+              {[
+                ["Bathrooms", "Convenient for travelers, especially those with medical needs, families, or on long commutes."],
+                ["ADA Accessibility", "Ensures accessible navigation for users with limited mobility."],
+                ["Ridership Levels", "Helps anticipate crowd levels and plan travel accordingly."],
+                ["Nearby Police Stations", "Provides a sense of safety and supports emergency response."],
+              ].map(([title, description]) => (
+                <List.Item key={title}>
+                  <b>{title}</b>: {description}
+                </List.Item>
+              ))}
+            </List>
+          </Accordion.Panel>
+        </Accordion.Item>
+
+        <Accordion.Item value="future-directions">
+          <Accordion.Control>Future Directions</Accordion.Control>
+          <Accordion.Panel>
+            <Text>Potential project expansions include:</Text>
+            <List spacing="xs" mt="xs">
+              {[
+                ["Additional Data Layers", "Add cost of living data, school locations, and hospital proximity."],
+                ["Advanced User Interactions", "Introduce a time-lapse view to track income trends over time."],
+                ["Further Data Integration", "Incorporate crime statistics and real estate trends for context on wealth disparities and gentrification."],
+              ].map(([title, description]) => (
+                <List.Item key={title}>
+                  <b>{title}</b>: {description}
+                </List.Item>
+              ))}
+            </List>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion>
+      <Button
+        variant="outline"
+        mt="lg"
+        component="a"
+        href="https://github.com/nguyenmegan/mta-train-data"
+        target="_blank"
+      >
         View Project Repository
-      </a>
-    </Button>
-  </Container>
-);
+      </Button>
+      <Title order={2} mt="lg">Feedback</Title>
+      <Text mt="sm">
+        We welcome your feedback, including bug reports and improvement suggestions. Please fill out the form below, and
+        we’ll get back to you as soon as possible.
+      </Text>
+
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <TextInput
+          label="Your Name"
+          placeholder="John Doe"
+          mt="sm"
+          {...form.getInputProps('name')}
+        />
+        <TextInput
+          label="Your Email"
+          placeholder="johndoe@example.com"
+          mt="sm"
+          {...form.getInputProps('email')}
+        />
+        <Textarea
+          label="Feedback or Suggestions"
+          placeholder="Describe any issues or improvements you'd like to see"
+          minRows={4}
+          mt="sm"
+          {...form.getInputProps('feedback')}
+        />
+        <Group position="right" mt="md">
+          <Button type="submit" variant="outline">Submit Feedback</Button>
+        </Group>
+      </form>
+    </Container>
+  );
+};
 
 export default NYCSubwayVisualizerDocs;
