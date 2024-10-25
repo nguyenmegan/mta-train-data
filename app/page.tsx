@@ -8,7 +8,7 @@ export default function Explorer() {
         <>
             <HeaderSimple />
             <Container px={0} size="80rem">
-                <Title ta="center" mt={100}>
+                <Title ta="center">
                     <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
                         Data Explorer
                     </Text>

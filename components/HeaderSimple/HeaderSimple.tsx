@@ -6,7 +6,7 @@ import { useDisclosure } from '@mantine/hooks';
 import classes from './HeaderSimple.module.css';
 
 const links = [
-  { link: '/explorer', label: 'Explorer' },
+  { link: '/', label: 'Explorer' },
   { link: '/income-visualizer', label: 'Income Visualizer' },
   { link: '/about', label: 'About' },
 ];
@@ -19,13 +19,11 @@ export function HeaderSimple() {
     setActive(link); 
   };
 
-
   const items = links.map((link) => (
     <a
       key={link.label}
       href={link.link}
-      className={classes.link}
-      data-active={active === link.link || undefined}
+      className={`${classes.link} ${active === link.link ? classes.active : ''}`}
       onClick={() => handleLinkClick(link.link)} 
     >
       {link.label}
@@ -35,6 +33,7 @@ export function HeaderSimple() {
   return (
     <header className={classes.header}>
       <Container size="md" className={classes.inner}>
+        <h1>MTA Open Data Submission</h1>
         <Group gap={5} visibleFrom="xs">
           {items}
         </Group>
