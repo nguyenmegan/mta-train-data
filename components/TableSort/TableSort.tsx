@@ -154,13 +154,13 @@ export function TableSort() {
     <Table.Tr key={row.station_id}>
       <Table.Td style={{ width: '35%' }}>{row.stop_name}</Table.Td>{/* Wider Station Name */}
       <Table.Td style={{ width: '10%' }}>{translateBorough(row.borough)}</Table.Td>
-      <Table.Td>
-        <Group spacing={2}>
-          {row.daytime_routes.split(' ').map((route) => (
-            <span key={route}>{renderRouteIcons(route)}</span>
-          ))}
+    <Table.Td>
+        <Group>
+            {row.daytime_routes.split(' ').map((route) => (
+                <span key={route}>{renderRouteIcons(route)}</span>
+            ))}
         </Group>
-      </Table.Td>
+    </Table.Td>
       <Table.Td>{row.median_household_income ? `$${Number(row.median_household_income).toLocaleString()}` : 'N/A'}</Table.Td>
       <Table.Td>{row['2023_average_weekday_ridership'] !== null ? row['2023_average_weekday_ridership'].toLocaleString() : 'N/A'}</Table.Td>
       <Table.Td>{row['2023_average_weekend_ridership'] !== null ? row['2023_average_weekend_ridership'].toLocaleString() : 'N/A'}</Table.Td>
@@ -172,15 +172,14 @@ export function TableSort() {
 
   return (
     <Grid justify="center" align="center" gutter="lg">
-      <Grid.Col span={{ base: 12, md: 4 }}>
+    <Grid.Col span={{ base: 12, md: 4 }}>
         <TextInput
-          label="Search by any field"
-          placeholder="Type to search"
-          icon={<IconSearch size="1rem" />}
-          value={search}
-          onChange={handleSearchChange}
+            label="Search by any field"
+            placeholder="Type to search"
+            value={search}
+            onChange={handleSearchChange}
         />
-      </Grid.Col>
+    </Grid.Col>
       <Grid.Col span={{ base: 12, md: 4 }}>
         <MultiSelect
           data={lineOptions}

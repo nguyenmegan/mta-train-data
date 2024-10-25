@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { Container, Group, Burger } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './HeaderSimple.module.css';
@@ -8,7 +8,6 @@ import classes from './HeaderSimple.module.css';
 const links = [
   { link: '/explorer', label: 'Explorer' },
   { link: '/income-visualizer', label: 'Income Visualizer' },
-  { link: '/map', label: 'Map' },
   { link: '/about', label: 'About' },
 ];
 
@@ -16,7 +15,7 @@ export function HeaderSimple() {
   const [opened, { toggle }] = useDisclosure(false);
   const [active, setActive] = useState(links[0].link);
 
-  const handleLinkClick = (link) => {
+  const handleLinkClick = (link: SetStateAction<string>) => {
     setActive(link); 
   };
 

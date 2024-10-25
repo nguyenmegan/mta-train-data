@@ -31,18 +31,18 @@ const SubwayMap: React.FC = () => {
           position={[station.gtfs_latitude, station.gtfs_longitude]}
           icon={stationIcon}
         >
-          <Popup>
+        <Popup>
             {/* Popup content for each station */}
             <Card>
-              <Text weight={500}>{station.stop_name}</Text>
-              <Text>Borough: {station.borough}</Text>
-              <Text>Line: {station.line}</Text>
-              <Text>Routes: {station.daytime_routes}</Text>
-              <Text>Avg Weekday Ridership: {station['2023_average_weekday_ridership']}</Text>
-              <Text>Avg Weekend Ridership: {station['2023_average_weekend_ridership']}</Text>
-              <Text>ADA Accessible: {station.ada_accessible ? 'Yes' : 'No'}</Text>
+                <Text>{station.stop_name}</Text>
+                <Text>Borough: {station.borough}</Text>
+                <Text>Line: {station.line}</Text>
+                <Text>Routes: {station.daytime_routes}</Text>
+                <Text>Avg Weekday Ridership: {station['2023_average_weekday_ridership']}</Text>
+                <Text>Avg Weekend Ridership: {station['2023_average_weekend_ridership']}</Text>
+                <Text>ADA Accessible: {station.ada_accessible ? 'Yes' : 'No'}</Text>
             </Card>
-          </Popup>
+        </Popup>
           <Tooltip direction="top" offset={[0, -10]} opacity={1}>
             <span>{station.stop_name} - {station.daytime_routes}</span>
           </Tooltip>

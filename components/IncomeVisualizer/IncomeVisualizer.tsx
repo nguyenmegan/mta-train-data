@@ -53,8 +53,8 @@ export default function SubwayIncomeVisualizer() {
     const [chartData, setChartData] = useState<StationData[]>([]);
 
     useEffect(() => {
-        if (stationOrder[selectedLine]) {
-            const orderedStations = stationOrder[selectedLine];
+        if (stationOrder[selectedLine as keyof typeof stationOrder]) {
+            const orderedStations = stationOrder[selectedLine as keyof typeof stationOrder];
 
             const filteredData = orderedStations
                 .map((stationName: string) => {
@@ -64,7 +64,7 @@ export default function SubwayIncomeVisualizer() {
                     if (stationInfo && stationInfo.median_household_income && stationInfo.tract) {
                         return {
                             station: stationInfo.stop_name,
-                            income: parseInt(stationInfo.median_household_income, 10),
+                            income: String(stationInfo.median_household_income),
                             tract: stationInfo.tract,
                         };
                     }
@@ -72,7 +72,7 @@ export default function SubwayIncomeVisualizer() {
                 })
                 .filter(Boolean);
 
-            setChartData(filteredData as StationData[]);
+            setChartData(filteredData as unknown as StationData[]);
         }
     }, [selectedLine]);
 
@@ -117,7 +117,7 @@ export default function SubwayIncomeVisualizer() {
                         dataKey="station"
                         interval="preserveStartEnd"
                         tickFormatter={(value, index) => (index % Math.ceil(chartData.length / 10) === 0 ? value : '')}
-                        tick={{ angle: -30, textAnchor: 'end' }}
+                        tick={{ textAnchor: 'end' }}
                         height={60}
                     />
                     <YAxis
