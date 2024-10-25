@@ -1,0 +1,58 @@
+.th {
+    padding: 0;
+  }
+  
+  .control {
+    width: 100%;
+    padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+    transition: background-color 150ms ease;
+  
+    &:hover {
+      background-color: var(--mantine-color-gray-0); /* Light mode */
+      background-color: var(--mantine-color-dark-6); /* Dark mode */
+    }
+  }
+  
+  .icon {
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+  }
+  
+  .header {
+    position: sticky;
+    top: 0;
+    background-color: var(--mantine-color-body);
+    transition: box-shadow 150ms ease;
+  }
+  
+  .header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 1px solid var(--mantine-color-gray-2); /* Light mode */
+    border-bottom: 1px solid var(--mantine-color-dark-3); /* Dark mode */
+  }
+  
+  .scrolled {
+    box-shadow: var(--mantine-shadow-sm);
+  }
+  
+  @media (min-width: 768px) {
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+      gap: var(--mantine-spacing-md); /* Space between the columns */
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .filter-grid {
+      display: grid;
+      grid-template-columns: 1fr; /* Single column layout for mobile */
+      gap: var(--mantine-spacing-md); /* Space between the rows */
+    }
+  }
+  
