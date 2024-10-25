@@ -47,7 +47,6 @@ const NYCSubwayVisualizerDocs: React.FC = () => {
 
   return (
     <Container>
-      <Title order={1}>MTA Data Explorer</Title>
       <Text mt="md">
         This web application offers a comprehensive tool for exploring New York City's subway system. Designed for both
         practical use and social awareness, the tool provides travelers with key subway information and highlights
