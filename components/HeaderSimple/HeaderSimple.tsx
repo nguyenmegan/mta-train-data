@@ -1,11 +1,17 @@
-"use client";
+'use client';
 
 import { SetStateAction, useState } from 'react';
 import { Container, Group, Burger } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { ColorSchemeToggle } from '../../components/ColorSchemeToggle/ColorSchemeToggle'; // Import the new toggle component
 import classes from './HeaderSimple.module.css';
 
-const links = [
+interface Link {
+  link: string;
+  label: string;
+}
+
+const links: Link[] = [
   { link: '/', label: 'Explorer' },
   { link: '/income-visualizer', label: 'Income Visualizer' },
   { link: '/about', label: 'About' },
@@ -13,7 +19,7 @@ const links = [
 
 export function HeaderSimple() {
   const [opened, { toggle }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
+  const [active, setActive] = useState<string>(links[0].link);
 
   const handleLinkClick = (link: SetStateAction<string>) => {
     setActive(link); 
@@ -37,6 +43,8 @@ export function HeaderSimple() {
         <Group gap={5} visibleFrom="xs">
           {items}
         </Group>
+
+        <ColorSchemeToggle /> {/* Add the toggle switch here */}
 
         <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
       </Container>

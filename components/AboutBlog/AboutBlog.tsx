@@ -156,7 +156,7 @@ const NYCSubwayVisualizerDocs: React.FC = () => {
           mt="sm"
           {...form.getInputProps('feedback')}
         />
-        <Group position="right" mt="md">
+        <Group mt="md">
           <Button type="submit" variant="outline">Submit Feedback</Button>
         </Group>
       </form>
