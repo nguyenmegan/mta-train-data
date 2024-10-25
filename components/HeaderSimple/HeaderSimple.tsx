@@ -1,9 +1,9 @@
 'use client';
 
 import { SetStateAction, useState } from 'react';
-import { Container, Group, Burger } from '@mantine/core';
+import { Container, Group, Burger, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { ColorSchemeToggle } from '../../components/ColorSchemeToggle/ColorSchemeToggle'; // Import the new toggle component
+import { ColorSchemeToggle } from '../../components/ColorSchemeToggle/ColorSchemeToggle';
 import classes from './HeaderSimple.module.css';
 
 interface Link {
@@ -18,11 +18,12 @@ const links: Link[] = [
 ];
 
 export function HeaderSimple() {
-  const [opened, { toggle }] = useDisclosure(false);
+  const [opened, { toggle, close }] = useDisclosure(false);
   const [active, setActive] = useState<string>(links[0].link);
 
   const handleLinkClick = (link: SetStateAction<string>) => {
-    setActive(link); 
+    setActive(link);
+    close(); // Close the drawer when a link is clicked
   };
 
   const items = links.map((link) => (
@@ -30,7 +31,7 @@ export function HeaderSimple() {
       key={link.label}
       href={link.link}
       className={`${classes.link} ${active === link.link ? classes.active : ''}`}
-      onClick={() => handleLinkClick(link.link)} 
+      onClick={() => handleLinkClick(link.link)}
     >
       {link.label}
     </a>
@@ -40,13 +41,21 @@ export function HeaderSimple() {
     <header className={classes.header}>
       <Container size="md" className={classes.inner}>
         <h1>MTA Open Data Challenge Submission</h1>
-        <Group gap={5} visibleFrom="xs">
+        
+        <Group gap={5} visibleFrom="sm"> {/* Only visible on larger screens */}
           {items}
         </Group>
 
-        <ColorSchemeToggle /> {/* Add the toggle switch here */}
+        <ColorSchemeToggle /> 
 
-        <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
+        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+
+        {/* Drawer for mobile links */}
+        <Drawer opened={opened} onClose={close} title="Menu" padding="md" size="xs">
+          <div className={classes.mobileLinks}>
+            {items}
+          </div>
+        </Drawer>
       </Container>
     </header>
   );
