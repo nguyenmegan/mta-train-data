@@ -33,7 +33,7 @@ export function HeaderSimple() {
   return (
     <header className={classes.header}>
       <Container size="md" className={classes.inner}>
-        <h1>MTA Open Data Submission</h1>
+        <h1>MTA Open Data Challenge Submission</h1>
         <Group gap={5} visibleFrom="xs">
           {items}
         </Group>

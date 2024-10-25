@@ -5,8 +5,8 @@ import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { theme } from '../theme';
 
 export const metadata = {
-  title: 'Mantine Next.js template',
-  description: 'I am using Mantine with Next.js!',
+  title: 'MTA Open Data Challenge',
+  description: 'By Megan Nguyen',
 };
 
 export default function RootLayout({ children }: { children: any }) {

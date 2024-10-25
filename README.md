@@ -1,37 +1,46 @@
-# Mantine Next.js template
+# MTA Open Data Challenge Submission
 
-This is a template for [Next.js](https://nextjs.org/) app router + [Mantine](https://mantine.dev/).
-If you want to use pages router instead, see [next-pages-template](https://github.com/mantinedev/next-pages-template).
+## Overview
 
-## Features
+The web application that offers dual-purpose tool for exploring New York City's subway system. This project is designed to assist travelers with practical information and raise awareness of socioeconomic diversity within the city, revealed through subway routes.
 
-This template comes with the following features:
+### Features
 
-- [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Storybook](https://storybook.js.org/)
-- [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+1. **Data Explorer**:
+   - Provides essential station information such as bathroom availability, ADA accessibility, ridership levels, and proximity to nearby police stations.
+   - Aids in planning subway travel with easy-to-access details about station amenities.
 
-## npm scripts
+2. **Income Visualizer**:
+   - Maps median household income by census tract to highlight socioeconomic contrasts encountered along subway routes.
+   - Offers insights into NYC's unique economic diversity by visualizing income disparities across neighborhoods.
 
-### Build and dev scripts
+## Table of Contents
 
-- `dev` – start dev server
-- `build` – bundle application for production
-- `analyze` – analyzes application bundle with [@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
+- [Technologies Used](#technologies-used)
+- [Data Sources](#data-sources)
+- [Setup and Installation](#setup-and-installation)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [Future Enhancements](#future-enhancements)
+- [License](#license)
 
-### Testing scripts
+## Technologies Used
 
-- `typecheck` – checks TypeScript types
-- `lint` – runs ESLint
-- `prettier:check` – checks files with Prettier
-- `jest` – runs jest tests
-- `jest:watch` – starts jest watch
-- `test` – runs `jest`, `prettier:check`, `lint` and `typecheck` scripts
+- **React**: Frontend library for building UI components.
+- **Mantine UI**: Component library for React, used for styling and UI elements.
+- **Recharts**: Visualization library for interactive and responsive data charts.
 
-### Other scripts
+## Data Sources
 
-- `storybook` – starts storybook dev server
-- `storybook:build` – build production storybook bundle to `storybook-static`
-- `prettier:write` – formats all files with Prettier
+The project relies on multiple datasets to provide accurate and up-to-date information about subway stations and neighborhood demographics:
+
+| Data Source             | Details                                                                                             |
+|-------------------------|-----------------------------------------------------------------------------------------------------|
+| Median Household Income | 2022 U.S. Census ACS 5-year estimates for median income data by census tract.                       |
+| Station Locations       | MTA Subway Stations data matched with census tracts using GIS.                                      |
+| Bathrooms               | MTA bathroom data for each station.                                                                 |
+| ADA Accessibility       | Information on ADA-accessible stations from MTA.                                                    |
+| Ridership Levels        | 2023 MTA ridership data.                                                                            |
+| Police Stations         | Nearby police station locations for context on emergency and safety services.                       |
+| MTA Line Colors         | Official line colors for consistent visual presentation.                                            |
+| Subway Line Bullet Icons| Icons for each subway line.       
