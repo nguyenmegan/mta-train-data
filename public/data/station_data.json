@@ -6686,8 +6686,8 @@
         "county": 47,
         "tract": "001501",
         "median_household_income": "94323",
-        "2023_average_weekday_ridership": 57533,
-        "2023_average_weekend_ridership": 59967,
+        "2023_average_weekday_ridership": 4656,
+        "2023_average_weekend_ridership": 6495,
         "police_station": false,
         "bathroom": true,
         "ada_accessible": true
