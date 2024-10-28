@@ -6,6 +6,7 @@ import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@table
 import Image from 'next/image';
 import stationData from '../../public/data/station_data.json';
 import classes from './TableSort.module.css';
+import '../../styles/global.css';
 
 // Mapping route names to SVG paths
 const routeIcons: { [key: string]: string } = {
@@ -152,7 +153,7 @@ export function TableSort() {
 
     const rows = sortedData.map((row) => (
         <Table.Tr key={row.station_id}>
-            <Table.Td style={{ width: '35%' }}>{row.stop_name}</Table.Td>{/* Wider Station Name */}
+            <Table.Td style={{ width: '35%' }}>{row.stop_name}</Table.Td>
             <Table.Td style={{ width: '10%' }}>{translateBorough(row.borough)}</Table.Td>
             <Table.Td>
                 <Group>
@@ -164,9 +165,9 @@ export function TableSort() {
             <Table.Td>{row.median_household_income ? `$${Number(row.median_household_income).toLocaleString()}` : 'N/A'}</Table.Td>
             <Table.Td>{row['2023_average_weekday_ridership'] !== null ? row['2023_average_weekday_ridership'].toLocaleString() : 'N/A'}</Table.Td>
             <Table.Td>{row['2023_average_weekend_ridership'] !== null ? row['2023_average_weekend_ridership'].toLocaleString() : 'N/A'}</Table.Td>
-            <Table.Td style={{ width: '6%' }}>{row.ada_accessible ? '♿️' : '🚫'}</Table.Td>{/* Narrower */}
-            <Table.Td style={{ width: '6%' }}>{row.police_station ? '🚓' : '🚫'}</Table.Td>{/* Narrower */}
-            <Table.Td style={{ width: '6%' }}>{row.bathroom ? '🚽' : '🚫'}</Table.Td>{/* Narrower */}
+            <Table.Td style={{ width: '6%' }}>{row.ada_accessible ? '♿️' : '🚫'}</Table.Td>
+            <Table.Td style={{ width: '6%' }}>{row.police_station ? '🚓' : '🚫'}</Table.Td>
+            <Table.Td style={{ width: '6%' }}>{row.bathroom ? '🚽' : '🚫'}</Table.Td>
         </Table.Tr>
     ));
 

@@ -23,7 +23,7 @@ export function HeaderSimple() {
 
   const handleLinkClick = (link: SetStateAction<string>) => {
     setActive(link);
-    close(); // Close the drawer when a link is clicked
+    close(); 
   };
 
   const items = links.map((link) => (

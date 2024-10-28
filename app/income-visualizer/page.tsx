@@ -1,4 +1,5 @@
 import { HeaderSimple } from '../../components/HeaderSimple/HeaderSimple';
+import { FooterSimple } from '../../components/FooterSimple/FooterSimple';
 import { Container } from '@mantine/core';
 import IncomeVisualizer from '@/components/IncomeVisualizer/IncomeVisualizer';
 import { Title, Text } from '@mantine/core';
@@ -8,13 +9,14 @@ export default function Visualizer() {
         <>
             <HeaderSimple />
             <Container my="lg">
-                <Title ta="center" mt={100}>
-                    <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
+                <Title ta="center" mb={30}>
+                    <Text inherit component="span">
                         Subway Line Income Visualizer
                     </Text>
                 </Title>
                 <IncomeVisualizer />
             </Container>
+            <FooterSimple />
         </>
     );
 }

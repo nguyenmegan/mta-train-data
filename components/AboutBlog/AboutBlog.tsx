@@ -130,36 +130,21 @@ const NYCSubwayVisualizerDocs: React.FC = () => {
       >
         View Project Repository
       </Button>
+
       <Title order={2} mt="lg">Feedback</Title>
       <Text mt="sm">
-        We welcome your feedback, including bug reports and improvement suggestions. Please fill out the form below, and
-        we’ll get back to you as soon as possible.
+        Feedback is welcome, including bug reports and improvement suggestions. Click the button below to send an
+        email directly.
       </Text>
 
-      <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput
-          label="Your Name"
-          placeholder="John Doe"
-          mt="sm"
-          {...form.getInputProps('name')}
-        />
-        <TextInput
-          label="Your Email"
-          placeholder="johndoe@example.com"
-          mt="sm"
-          {...form.getInputProps('email')}
-        />
-        <Textarea
-          label="Feedback or Suggestions"
-          placeholder="Describe any issues or improvements you'd like to see"
-          minRows={4}
-          mt="sm"
-          {...form.getInputProps('feedback')}
-        />
-        <Group mt="md">
-          <Button type="submit" variant="outline">Submit Feedback</Button>
-        </Group>
-      </form>
+      <Button
+        variant="outline"
+        mt="sm"
+        component="a"
+        href="mailto:nguyenmegan@berkeley.edu"
+      >
+        Send Feedback via Email
+      </Button>
     </Container>
   );
 };

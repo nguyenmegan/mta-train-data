@@ -81,7 +81,7 @@ export default function SubwayIncomeVisualizer() {
     }
 
     return (
-        <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', justifyContent: 'center' }}>
+        <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', justifyContent: 'center' }}>
             <div
                 style={{
                     display: 'flex',
@@ -117,7 +117,8 @@ export default function SubwayIncomeVisualizer() {
                         dataKey="station"
                         interval="preserveStartEnd"
                         tickFormatter={(value, index) => (index % Math.ceil(chartData.length / 10) === 0 ? value : '')}
-                        tick={{ textAnchor: 'end' }}
+                        angle={-25}
+                        textAnchor="end"
                         height={60}
                     />
                     <YAxis
