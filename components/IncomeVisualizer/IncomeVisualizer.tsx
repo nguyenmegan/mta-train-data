@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Container, Text, Chip } from '@mantine/core'; // Correct imports
+import { Container, Text, Chip } from '@mantine/core';
 import {
-    LineChart,
-    Line,
+    AreaChart,
+    Area,
     XAxis,
     YAxis,
     Tooltip,
     CartesianGrid
-} from 'recharts'; // Recharts imports
+} from 'recharts';
 import stationData from '../../public/data/station_data.json';
 import stationOrder from '../../public/data/station_order.json';
 
@@ -18,8 +18,6 @@ interface StationData {
     income: number;
     tract: string;
 }
-
-const normalizeStationName = (name: string) => name.trim().toLowerCase();
 
 const colorMap: { [key: string]: string } = {
     A: '#0039A6',
@@ -48,6 +46,25 @@ const colorMap: { [key: string]: string } = {
     7: '#B933AD',
 };
 
+// Custom tooltip component
+const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+        const station = label;
+        const income = payload[0].value.toLocaleString();
+        const tract = payload[0].payload.tract;
+
+        return (
+            <div style={{ backgroundColor: '#f9f9f9', padding: '10px', borderRadius: '8px', border: '1px solid #ccc' }}>
+                <p style={{ fontWeight: 'bold', color: '#333', marginBottom: '5px' }}>{station}</p>
+                <p style={{ color: '#1d1d1d', margin: 0 }}>Census Tract: {tract}</p>
+                <p style={{ color: '#1d1d1d', margin: 0 }}>Median Household Income: ${income}</p>
+            </div>
+        );
+    }
+
+    return null;
+};
+
 export default function SubwayIncomeVisualizer() {
     const [selectedLine, setSelectedLine] = useState<string>('N');
     const [chartData, setChartData] = useState<StationData[]>([]);
@@ -57,14 +74,14 @@ export default function SubwayIncomeVisualizer() {
             const orderedStations = stationOrder[selectedLine as keyof typeof stationOrder];
 
             const filteredData = orderedStations
-                .map((stationName: string) => {
+                .map((stationId: number) => {
                     const stationInfo = stationData.find(
-                        (station: any) => normalizeStationName(station.stop_name) === normalizeStationName(stationName)
+                        (station: any) => station.station_id === stationId
                     );
                     if (stationInfo && stationInfo.median_household_income && stationInfo.tract) {
                         return {
                             station: stationInfo.stop_name,
-                            income: String(stationInfo.median_household_income),
+                            income: Number(stationInfo.median_household_income),
                             tract: stationInfo.tract,
                         };
                     }
@@ -106,7 +123,7 @@ export default function SubwayIncomeVisualizer() {
             </div>
 
             <div style={{ width: '1000px', height: '500px' }}>
-                <LineChart
+                <AreaChart
                     width={1000}
                     height={500}
                     data={chartData}
@@ -125,34 +142,17 @@ export default function SubwayIncomeVisualizer() {
                         ticks={[0, 50000, 100000, 150000, 200000, 250000]}
                         domain={[0, 250000]}
                     />
-                    <Tooltip
-                        cursor={{ strokeDasharray: '3 3' }}
-                        offset={0}
-                        formatter={(value: number) => `$${value.toLocaleString()}`}
-                        labelFormatter={(label) => `Station: ${label}`}
-                        contentStyle={{
-                            backgroundColor: '#f9f9f9',
-                            borderRadius: '8px',
-                            padding: '10px',
-                        }}
-                        itemStyle={{
-                            fontWeight: 'bold',
-                            lineHeight: '1.5',
-                        }}
-                        labelStyle={{
-                            fontWeight: 'bold',
-                            color: '#333',
-                            fontSize: '16px',
-                        }}
-                        wrapperStyle={{ borderColor: '#ccc' }}
-                    />
-                    <Line
+                    <Tooltip content={<CustomTooltip />} />
+                    <Area
                         type="monotone"
                         dataKey="income"
+                        name="Median Household Income"
                         stroke={colorMap[selectedLine] || '#8884d8'}
+                        fillOpacity={0.3}
+                        fill={colorMap[selectedLine] || '#8884d8'}
                         activeDot={{ r: 6 }}
                     />
-                </LineChart>
+                </AreaChart>
                 <Text size="sm" mt="md">
                     Source: U.S. Census 2022 ACS 5-year estimates
                 </Text>

@@ -23,12 +23,12 @@ export function FooterSimple() {
     </Anchor>
   ));
 
-return (
+  return (
     <div className={classes.footer}>
-        <Container className={classes.inner}>
-            <Text c="dimmed"> © 2024 Megan Nguyen. All rights reserved.</Text>
-            {/* <Group className={classes.links}>{items}</Group> */}
-        </Container>
+      <Container className={classes.inner}>
+        <Text c="dimmed"> © 2024 Megan Nguyen. All rights reserved.</Text>
+        {/* <Group className={classes.links}>{items}</Group> */}
+      </Container>
     </div>
-);
+  );
 }

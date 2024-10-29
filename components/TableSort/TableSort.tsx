@@ -1,14 +1,13 @@
 "use client";
 
 import { useState } from 'react';
-import { Table, ScrollArea, UnstyledButton, Group, Text, Center, TextInput, Grid, MultiSelect, rem } from '@mantine/core';
+import { Table, ScrollArea, UnstyledButton, Group, Text, Center, TextInput, Grid, MultiSelect, Tooltip, rem } from '@mantine/core';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
 import Image from 'next/image';
 import stationData from '../../public/data/station_data.json';
 import classes from './TableSort.module.css';
 import '../../styles/global.css';
 
-// Mapping route names to SVG paths
 const routeIcons: { [key: string]: string } = {
     1: '/img/bullets/1.svg',
     2: '/img/bullets/2.svg',
@@ -37,7 +36,6 @@ const routeIcons: { [key: string]: string } = {
     Z: '/img/bullets/z.svg',
 };
 
-// Options for MultiSelect
 const boroughOptions = [
     { value: 'Queens', label: 'Queens' },
     { value: 'Manhattan', label: 'Manhattan' },
@@ -53,7 +51,6 @@ const renderRouteIcons = (route: string) => {
     return iconPath ? <Image src={iconPath} alt={`Route ${route}`} width={16} height={16} /> : route;
 };
 
-// Borough translation helper
 const translateBorough = (borough: string) => {
     const mapping: { [key: string]: string } = {
         Q: 'Queens',
@@ -65,24 +62,32 @@ const translateBorough = (borough: string) => {
     return mapping[borough] || borough;
 };
 
-// Table header component
-const Th = ({ children, reversed, sorted, onSort }: any) => {
+const Th = ({ children, reversed, sorted, onSort, tooltip }: any) => {
     const Icon = sorted ? (reversed ? IconChevronUp : IconChevronDown) : IconSelector;
+    const headerContent = (
+        <UnstyledButton onClick={onSort} className={classes.control}>
+            <Group justify="space-between">
+                <Text fw={500} fz="sm">{children}</Text>
+                <Center className={classes.icon}>
+                    <Icon style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+                </Center>
+            </Group>
+        </UnstyledButton>
+    );
+
     return (
         <Table.Th className={classes.th}>
-            <UnstyledButton onClick={onSort} className={classes.control}>
-                <Group justify="space-between">
-                    <Text fw={500} fz="sm">{children}</Text>
-                    <Center className={classes.icon}>
-                        <Icon style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
-                    </Center>
-                </Group>
-            </UnstyledButton>
+            {tooltip ? (
+                <Tooltip label={tooltip} position="top" withArrow>
+                    {headerContent}
+                </Tooltip>
+            ) : (
+                headerContent
+            )}
         </Table.Th>
     );
 };
 
-// Data filtering function
 const filterData = (data: any[], search: string, selectedRoutes: string[], selectedBoroughs: string[]) => {
     const query = search.toLowerCase().trim();
     return data.filter((item) => {
@@ -95,7 +100,6 @@ const filterData = (data: any[], search: string, selectedRoutes: string[], selec
     });
 };
 
-// Data sorting function with null handling
 const sortData = (data: any[], { sortBy, reversed, search, selectedRoutes, selectedBoroughs }: { sortBy: keyof any | null; reversed: boolean; search: string; selectedRoutes: string[]; selectedBoroughs: string[] }) => {
     if (!sortBy) return filterData(data, search, selectedRoutes, selectedBoroughs);
 
@@ -203,7 +207,7 @@ export function TableSort() {
             </Grid.Col>
             <Grid.Col span={12}>
                 <ScrollArea>
-                    <Table highlightOnHover horizontalSpacing="md" verticalSpacing="xs" miw={700} layout="fixed">
+                    <Table highlightOnHover horizontalSpacing="sm" verticalSpacing="8px" miw={700} layout="fixed">
                         <Table.Thead>
                             <Table.Tr>
                                 <Th sorted={sortBy === 'stop_name'} reversed={reverseSortDirection} onSort={() => setSorting('stop_name')}>
@@ -215,22 +219,27 @@ export function TableSort() {
                                 <Th sorted={sortBy === 'daytime_routes'} reversed={reverseSortDirection} onSort={() => setSorting('daytime_routes')}>
                                     Routes
                                 </Th>
-                                <Th sorted={sortBy === 'median_household_income'} reversed={reverseSortDirection} onSort={() => setSorting('median_household_income')}>
+                                <Th sorted={sortBy === 'median_household_income'} reversed={reverseSortDirection} onSort={() => setSorting('median_household_income')}
+                                    tooltip="Median Household Income ">
                                     Income
                                 </Th>
-                                <Th sorted={sortBy === '2023_average_weekday_ridership'} reversed={reverseSortDirection} onSort={() => setSorting('2023_average_weekday_ridership')}>
+                                <Th sorted={sortBy === '2023_average_weekday_ridership'} reversed={reverseSortDirection} onSort={() => setSorting('2023_average_weekday_ridership')}
+                                    tooltip="Average weekday ridership in 2023">
                                     Weekday
                                 </Th>
-                                <Th sorted={sortBy === '2023_average_weekend_ridership'} reversed={reverseSortDirection} onSort={() => setSorting('2023_average_weekend_ridership')}>
+                                <Th sorted={sortBy === '2023_average_weekend_ridership'} reversed={reverseSortDirection} onSort={() => setSorting('2023_average_weekend_ridership')}
+                                    tooltip="Average weekend ridership in 2023">
                                     Weekend
                                 </Th>
-                                <Th sorted={sortBy === 'ada_accessible'} reversed={reverseSortDirection} onSort={() => setSorting('ada_accessible')}>
+                                <Th sorted={sortBy === 'ada_accessible'} reversed={reverseSortDirection} onSort={() => setSorting('ada_accessible')}
+                                    tooltip="Elevator and/or ramp entrance">
                                     ADA ♿️
                                 </Th>
                                 <Th sorted={sortBy === 'police_station'} reversed={reverseSortDirection} onSort={() => setSorting('police_station')}>
                                     NYPD 🚓
                                 </Th>
-                                <Th sorted={sortBy === 'bathroom'} reversed={reverseSortDirection} onSort={() => setSorting('bathroom')}>
+                                <Th sorted={sortBy === 'bathroom'} reversed={reverseSortDirection} onSort={() => setSorting('bathroom')}
+                                    tooltip="Open from 7 a.m. to 7 p.m">
                                     Restroom
                                 </Th>
                             </Table.Tr>

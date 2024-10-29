@@ -10,12 +10,10 @@ export function ColorSchemeToggle() {
   const theme = useMantineTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Ensures component is mounted before rendering switch
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Avoid rendering on the server
   if (!mounted) return null;
 
   const sunIcon = (

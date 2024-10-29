@@ -23,7 +23,7 @@ export function HeaderSimple() {
 
   const handleLinkClick = (link: SetStateAction<string>) => {
     setActive(link);
-    close(); 
+    close();
   };
 
   const items = links.map((link) => (
@@ -41,12 +41,12 @@ export function HeaderSimple() {
     <header className={classes.header}>
       <Container size="md" className={classes.inner}>
         <h1>MTA Open Data Challenge Submission</h1>
-        
+
         <Group gap={5} visibleFrom="sm"> {/* Only visible on larger screens */}
           {items}
         </Group>
 
-        <ColorSchemeToggle /> 
+        <ColorSchemeToggle />
 
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
 
